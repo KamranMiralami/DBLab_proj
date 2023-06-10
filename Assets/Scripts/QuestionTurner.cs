@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class QuestionTurner : MonoBehaviour
 {
+    public QuestionManager PrevQuestion;
     public QuestionManager CurrentQuestion;
     public QuestionManager NextQuestion;
     public QuestionManager FirstQuestion;
@@ -15,6 +16,59 @@ public class QuestionTurner : MonoBehaviour
     public Manager manager;
     private void Start()
     {
+    }
+    public void GoPreviousQuestion()
+    {
+        if (CurrentQuestion == null)
+        {
+            Debug.Log("no prev question");
+        }
+        else
+        {
+            Debug.Log("Going prev question " + CurrentQuestion.name);
+            if (CurrentQuestion == FirstQuestion)
+            {
+                Debug.Log("No Prev Question");
+                return;
+            }
+            PrevQuestion = CurrentQuestion.PrevQ[0];
+            if (CurrentQuestion.name == "Q8-1"|| CurrentQuestion.name == "Q8-2")
+            {
+                if (manager.Q2Ans == 2)
+                {
+                    PrevQuestion = CurrentQuestion.PrevQ[1];
+                }
+                else
+                {
+                    PrevQuestion = CurrentQuestion.PrevQ[0];
+                }
+            }
+            if (CurrentQuestion.name == "Q9")
+            {
+                if (manager.Q2Ans == 1)
+                {
+                    PrevQuestion = CurrentQuestion.PrevQ[0];
+                }
+                else
+                {
+                    PrevQuestion = CurrentQuestion.PrevQ[1];
+                }
+            }
+        }
+        PrevQuestion.transform.position = new Vector3(50, 0, 0);
+        PrevQuestion.gameObject.SetActive(true);
+        if (CurrentQuestion != null)
+        {
+            CurrentQuestion.transform.DOMove(new Vector3(-50, 0, 0), 0.5f).OnComplete(() =>
+            {
+                CurrentQuestion.gameObject.SetActive(false);
+            });
+        }
+        PrevQuestion.transform.DOMove(new Vector3(0, 0, 0), 1f).OnComplete(() =>
+        {
+            CurrentQuestion = PrevQuestion;
+            CurrentQuestion.EnableButtons();
+        });
     }
     public void GoNextQuestion()
     {

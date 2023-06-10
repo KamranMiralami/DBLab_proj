@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class QuestionManager : MonoBehaviour
 {
     public List<QuestionManager> NextQ;
+    public List<QuestionManager> PrevQ;
     public List<Button> Buttons;
     private void Start()
     {
