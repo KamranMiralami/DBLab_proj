@@ -5,4 +5,4 @@ This application will suggest you an appropriate laptop based on your needs and 
 ![Screenshot](Screenshot%202023-11-07%20173218.png)
 
 
-![Screenshot](Screenshot 2023-11-07 175818.png)
+![Screenshot](Screenshot%202023-11-07%20175818.png)
